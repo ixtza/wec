@@ -1,0 +1,156 @@
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0005823
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0005505
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0005532
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0011212
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0011283
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0005484
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0005464
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0011101
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0005508
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0011829
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0010577
+!WEC|0|2|3
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 2
+cache miss : 1
+hit ratio : 66.66667
+write count : 0
+duration : 0.0005663
+!WEC|0|2|3

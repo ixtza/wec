@@ -1,0 +1,45 @@
+_______________________________________________________
+WEC
+cache size : 5000
+ssd size : 2500
+ram size : 2500
+hdd size : 100000
+quit threshold : 2500
+SSD hit : 0
+RAM hit : 1161
+cache hit : 1161
+cache miss : 98827
+hit ratio : 1.1611394
+write count : 0
+duration : 48.9637338
+!WEC|5000|1161|99988
+_______________________________________________________
+WEC
+cache size : 5000
+ssd size : 1250
+ram size : 3750
+hdd size : 100000
+quit threshold : 1250
+SSD hit : 0
+RAM hit : 1161
+cache hit : 1161
+cache miss : 98827
+hit ratio : 1.1611394
+write count : 0
+duration : 48.4951147
+!WEC|5000|1161|99988
+_______________________________________________________
+WEC
+cache size : 5000
+ssd size : 3750
+ram size : 1250
+hdd size : 100000
+quit threshold : 3750
+SSD hit : 0
+RAM hit : 1161
+cache hit : 1161
+cache miss : 98827
+hit ratio : 1.1611394
+write count : 0
+duration : 49.1108574
+!WEC|5000|1161|99988

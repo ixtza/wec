@@ -1,0 +1,156 @@
+_______________________________________________________
+WEC
+cache size : 50
+ssd size : 25
+ram size : 25
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.0032413
+!WEC|50|0|1000
+_______________________________________________________
+WEC
+cache size : 49
+ssd size : 12
+ram size : 37
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.00273
+!WEC|49|0|1000
+_______________________________________________________
+WEC
+cache size : 49
+ssd size : 37
+ram size : 12
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.0034799
+!WEC|49|0|1000
+_______________________________________________________
+WEC
+cache size : 100
+ssd size : 50
+ram size : 50
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.005202
+!WEC|100|0|1000
+_______________________________________________________
+WEC
+cache size : 100
+ssd size : 25
+ram size : 75
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.0050011
+!WEC|100|0|1000
+_______________________________________________________
+WEC
+cache size : 100
+ssd size : 75
+ram size : 25
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.0050018
+!WEC|100|0|1000
+_______________________________________________________
+WEC
+cache size : 150
+ssd size : 75
+ram size : 75
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.007997
+!WEC|150|0|1000
+_______________________________________________________
+WEC
+cache size : 149
+ssd size : 37
+ram size : 112
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.007007
+!WEC|149|0|1000
+_______________________________________________________
+WEC
+cache size : 149
+ssd size : 112
+ram size : 37
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.0069928
+!WEC|149|0|1000
+_______________________________________________________
+WEC
+cache size : 200
+ssd size : 100
+ram size : 100
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.0100067
+!WEC|200|0|1000
+_______________________________________________________
+WEC
+cache size : 200
+ssd size : 50
+ram size : 150
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.0089934
+!WEC|200|0|1000
+_______________________________________________________
+WEC
+cache size : 200
+ssd size : 150
+ram size : 50
+hdd size : 1000
+quit threshold : 0
+cache hit : 0
+cache miss : 1000
+hit ratio : 0
+write count : 0
+duration : 0.0100017
+!WEC|200|0|1000

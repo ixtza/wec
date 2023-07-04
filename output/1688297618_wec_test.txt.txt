@@ -1,0 +1,15 @@
+_______________________________________________________
+WEC
+cache size : 5000
+ssd size : 2500
+ram size : 2500
+hdd size : 100000
+quit threshold : 2500
+SSD hit : 0
+RAM hit : 1161
+cache hit : 1161
+cache miss : 98827
+hit ratio : 1.1611394
+write count : 0
+duration : 49.883359
+!WEC|5000|1161|99988

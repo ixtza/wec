@@ -1,0 +1,4 @@
+github.com/petar/GoLLRB v0.0.0-20210522233825-ae3b015fd3e9 h1:1/WtZae0yGtPq+TI6+Tv1WTxkukpXeMlviSxvL7SRgk=
+github.com/petar/GoLLRB v0.0.0-20210522233825-ae3b015fd3e9/go.mod h1:x3N5drFsm2uilKKuuYo6LdyD8vZAW55sH/9w+pbo1sw=
+github.com/secnot/orderedmap v0.0.0-20170705091748-a05363cca499 h1:kUHtr4YDm7xYD3NXTNT7PNs58vtpSCuItmIKKG3DUIQ=
+github.com/secnot/orderedmap v0.0.0-20170705091748-a05363cca499/go.mod h1:Me83cZu55udpnaC7u/FA/Rtk59MPZOCjNgo5TiUJ2Lw=

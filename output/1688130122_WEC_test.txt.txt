@@ -1,0 +1,156 @@
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
+_______________________________________________________
+WEC
+cache size : 0
+ssd size : 0
+ram size : 0
+hdd size : 3
+quit threshold : 0
+cache hit : 0
+cache miss : 0
+hit ratio : NaN
+write count : 0
+duration : 0
+!WEC|0|0|0
