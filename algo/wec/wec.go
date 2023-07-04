@@ -3,7 +3,6 @@ package wec
 import (
 	"os"
 	"fmt"
-	"sort"
 	"container/list"
 	"time"
 	"math"
@@ -25,6 +24,9 @@ type (
 		spq         bool
 		accessCount int
 		idleTime    int
+
+		activeLifeSpan int // sum dari access interval/IRR
+		averageAccessTime int // hasil activeLifeSpan / accessCount
 	}
 
 	WCQueue struct {
@@ -42,7 +44,7 @@ type (
 		ssdHitCount int
 		ramHitCount int
 
-		wecThreshold int
+		wecThreshold float64
 		quitThreshold int
 		updatePeriode int
 
@@ -71,7 +73,7 @@ func NewWEC(ssdSize, ramSize, hddSize int) (wcq *WCQueue) {
 	wecSize := (ssdSize + ramSize)*(1 + int(math.Sqrt(float64((ssdSize+ramSize)/hddSize))))
 	// wecSize := quitThreshold
 	// updatePeriode := (ramSize + ssdSize) * 2
-	updatePeriode := ramSize + ssdSize
+	updatePeriode := ssdSize*(1+1/2)
   // wecThreshold := int(float64(ssdSize)*math.Sqrt((float64(ssdSize)+float64(ramSize))/float64(hddSize)))
 	return &WCQueue {
 		ramSize: ramSize,
@@ -85,9 +87,9 @@ func NewWEC(ssdSize, ramSize, hddSize int) (wcq *WCQueue) {
 		requestCount: 0,
 		spqCount: 0,
 		// wecThreshold: wecThreshold,
-		wecThreshold: 1,
+		wecThreshold: 0.2,
 		quitThreshold: quitThreshold,
-		updatePeriode: updatePeriode/2,
+		updatePeriode: 2500,
 		WCQueue: orderedmap.NewOrderedMap(),
 	}
 }
@@ -125,15 +127,13 @@ func (wcq *WCQueue) UpdateSSDCache() (err error) {
 		cacheCandidate := wcq.FetchCacheCandidates()
 		newWCQSize := wcq.wcqSize + (deleteCount - len(cacheCandidate))
 		wcq.SetWCQSize(newWCQSize)
-		sort.Slice(cacheCandidate, func(currIdx,nextIdx int) bool {
-			return cacheCandidate[currIdx].accessCount > cacheCandidate[nextIdx].accessCount
-		})
 
 		wcq.ssdFreeSpace -= (totalFreeSpace - len(cacheCandidate))
 
 		traverseIndex := 0
 		for traverseIndex < totalFreeSpace &&  traverseIndex < len(cacheCandidate){
-      cacheCandidate[traverseIndex].SetLocation("SSD")
+			cacheCandidate[traverseIndex].SetLocation("SSD")
+			wcq.writeCount += 1
 			traverseIndex++
 		}
 	}
@@ -150,23 +150,43 @@ func (wcq *WCQueue) DeleteSSDExpiredData() (count int) {
 	return 
 }
 func (wcq *WCQueue) FetchCacheCandidates() (datas []*WECData){
-	iter := wcq.WCQueue.IterReverse()
+	mapCandidate := make(map[int][]*WECData)
+	maxAverage := -1
+	count := 0
+	iter := wcq.WCQueue.Iter()
 	for _, wecData, ok := iter.Next(); ok; _, wecData, ok = iter.Next() {
 		data := wecData.(*WECData)
-		if ((wecData.(*WECData).location == "HDD" || wecData.(*WECData).location == "RAM") && data.accessCount >= wcq.wecThreshold)  {
-			datas = append(datas, data)
+		if (data.location == "HDD" || data.location == "RAM")  {
+			if (data.averageAccessTime > maxAverage) { maxAverage = data.averageAccessTime }
+			mapCandidate[data.averageAccessTime] = append(mapCandidate[data.averageAccessTime], data)
+			count += 1
+		}
+	}
+
+	for i := 0; i <= maxAverage || i <= int(float64(count)*float64(wcq.wecThreshold)) ; i++ {
+		if (mapCandidate[i] != nil) {
+			for block := range mapCandidate[i] {
+				if (count == 0) { break }
+				datas = append(datas, mapCandidate[i][block])
+			}
 		}
 	}
 	return
 }
-func (wcq *WCQueue) WCQEvict() (err error) {
+func (wcq *WCQueue) WCQEvict(targetId int) (err error) {
 	// Iterasi dari belakang
 	// Update idle time
 	// Jika SSD idleTime lebih dari WCQ, set SPQ to TRUE
 	// Jika RAM idleTime lebih dari ukuran RAM, move to HDD
 	// Jika HDD idleTime lebih dari WCQ, EVICT
-	iter := wcq.WCQueue.IterReverse()
+	iter := wcq.WCQueue.Iter()
+	irr := 0
 	for id, wecData, ok := iter.Next(); ok; id, wecData, ok = iter.Next() {
+		if (id != targetId) {irr += 1}
+		if (id == targetId) {
+			wecData.(*WECData).activeLifeSpan += irr
+			wecData.(*WECData).averageAccessTime = wecData.(*WECData).activeLifeSpan/wecData.(*WECData).accessCount
+		}
 		wecData.(*WECData).AdvanceIdleTime()
 		if (wecData.(*WECData).location == "SSD" && wecData.(*WECData).idleTime > wcq.wcqSize) {
 			wcq.spqCount += 1
@@ -227,9 +247,7 @@ func (wcq *WCQueue) Get(trace simulator.Trace) (err error) {
 		break
 	case "R":
 		data := wcq.FindWCQData(id)
-    fmt.Println(id);
 		if (data != nil) {
-      fmt.Println(data);
 			data.AddAccessCount()
 			data.ResetIdleTime()
 			if (data.location == "RAM" || data.location == "SSD") {
@@ -240,15 +258,17 @@ func (wcq *WCQueue) Get(trace simulator.Trace) (err error) {
 					data.SetSQP(false)
 					wcq.spqCount -= 1
 				}
-				wcq.WCQueue.MoveFirst(id)
 				data.idleTime = -1
-				wcq.WCQEvict()
+				// pass block id untuk menghitung nilai IRR
+				wcq.WCQEvict(id)
+				wcq.WCQueue.MoveFirst(id)
 				return
 			}
 			if (data.location == "HDD") {
 				wcq.missCount += 1
+				// pass block id untuk menghitung nilai IRR
+				wcq.WCQEvict(id)
 				wcq.WCQueue.MoveFirst(id)
-				wcq.WCQEvict()
 				return
 			}
 		}
@@ -260,9 +280,11 @@ func (wcq *WCQueue) Get(trace simulator.Trace) (err error) {
 				spq: false,
 				location: "RAM",
 				idleTime: -1,
+				activeLifeSpan: 0,
+				averageAccessTime: -1,
 			})
 			wcq.RAMReplace()
-			wcq.WCQEvict()
+			wcq.WCQEvict(id)
 			return
 		}
 		break
