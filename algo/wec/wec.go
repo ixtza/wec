@@ -73,7 +73,7 @@ func NewWEC(ssdSize, ramSize, hddSize int) (wcq *WCQueue) {
 	wecSize := (ssdSize + ramSize)*(1 + int(math.Sqrt(float64((ssdSize+ramSize)/hddSize))))
 	// wecSize := quitThreshold
 	// updatePeriode := (ramSize + ssdSize) * 2
-	updatePeriode := ssdSize*(1+1/2)
+	// updatePeriode := ssdSize*(1+1/2)
   // wecThreshold := int(float64(ssdSize)*math.Sqrt((float64(ssdSize)+float64(ramSize))/float64(hddSize)))
 	return &WCQueue {
 		ramSize: ramSize,
@@ -89,7 +89,7 @@ func NewWEC(ssdSize, ramSize, hddSize int) (wcq *WCQueue) {
 		// wecThreshold: wecThreshold,
 		wecThreshold: 0.2,
 		quitThreshold: quitThreshold,
-		updatePeriode: 2500,
+		updatePeriode: 50,
 		WCQueue: orderedmap.NewOrderedMap(),
 	}
 }
@@ -163,11 +163,13 @@ func (wcq *WCQueue) FetchCacheCandidates() (datas []*WECData){
 		}
 	}
 
-	for i := 0; i <= maxAverage || i <= int(float64(count)*float64(wcq.wecThreshold)) ; i++ {
+	for i := 0; len(datas) <= int(float64(count)*float64(wcq.wecThreshold)) ; i++ {
+		if (count == 0) { break }
 		if (mapCandidate[i] != nil) {
 			for block := range mapCandidate[i] {
 				if (count == 0) { break }
 				datas = append(datas, mapCandidate[i][block])
+				count--
 			}
 		}
 	}
@@ -200,6 +202,19 @@ func (wcq *WCQueue) WCQEvict(targetId int) (err error) {
 		if (wecData.(*WECData).location == "HDD" && wecData.(*WECData).idleTime > wcq.wcqSize) {
 			wcq.WCQueue.Delete(id)
 			continue
+		}
+	}
+	return
+}
+func (wcq *WCQueue) UpdateIRR(targetId int)(err error) {
+	iter := wcq.WCQueue.Iter()
+	irr := 0
+	for id, wecData, ok := iter.Next(); ok; id, wecData, ok = iter.Next() {
+		if (id != targetId) {irr += 1}
+		if (id == targetId) {
+			wecData.(*WECData).activeLifeSpan += irr
+			wecData.(*WECData).averageAccessTime = wecData.(*WECData).activeLifeSpan/wecData.(*WECData).accessCount
+			break
 		}
 	}
 	return
@@ -249,25 +264,33 @@ func (wcq *WCQueue) Get(trace simulator.Trace) (err error) {
 		data := wcq.FindWCQData(id)
 		if (data != nil) {
 			data.AddAccessCount()
-			data.ResetIdleTime()
 			if (data.location == "RAM" || data.location == "SSD") {
 				wcq.hitCount += 1
 				if (data.location == "RAM") {wcq.ramHitCount += 1}
 				if (data.location == "SSD") {wcq.ssdHitCount += 1}
 				if (data.spq) {
+					// pass block id untuk menghitung nilai IRR
+					data.ResetIdleTime()
+					wcq.WCQEvict(id)
 					data.SetSQP(false)
 					wcq.spqCount -= 1
+					// wcq.WCQueue.MoveFirst(id)
+					return
 				}
-				data.idleTime = -1
-				// pass block id untuk menghitung nilai IRR
-				wcq.WCQEvict(id)
+				data.idleTime = 0
+				// operasi IRR tunggal
+				data.SetIdleTime(0)
+				wcq.UpdateIRR(id)
 				wcq.WCQueue.MoveFirst(id)
 				return
 			}
 			if (data.location == "HDD") {
 				wcq.missCount += 1
 				// pass block id untuk menghitung nilai IRR
-				wcq.WCQEvict(id)
+				// wcq.WCQEvict(id)
+				data.SetIdleTime(0)
+				wcq.UpdateIRR(id)
+				wcq.RAMReplace()
 				wcq.WCQueue.MoveFirst(id)
 				return
 			}
@@ -326,6 +349,10 @@ func (wec *WECData) AddAccessCount() (err error) {
 }
 func (wec *WECData) AdvanceIdleTime() (err error) {
 	wec.idleTime += 1
+	return nil
+}
+func (wec *WECData) SetIdleTime(newIdleTime int) (err error) {
+	wec.idleTime = newIdleTime
 	return nil
 }
 func (wec *WECData) ResetIdleTime() (err error) {
