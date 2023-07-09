@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"ixtza/ajk/wec/algo/wec_v2"
 	"ixtza/ajk/wec/algo/wec"
 	"ixtza/ajk/wec/algo/lfu"
 	"ixtza/ajk/wec/algo/lirs"
@@ -53,6 +54,15 @@ func main() {
 		}
 		cacheListWEC = wec.GenerateWECConfigs(cache)
 
+	} else if (strings.ToLower(algorithm) == "wecv2") {
+		// CP ratio
+		cache, err := strconv.Atoi(os.Args[3])
+		if err != nil{
+			fmt.Println(err.Error())
+			os.Exit(1)		
+		}
+		cacheListWEC = wec_v2.GenerateWECConfigs(cache)
+
 	} else {
 		cacheList, err = validateTraceSize(os.Args[3:])
 		if err != nil {
@@ -76,7 +86,7 @@ func main() {
 
 	if (strings.ToLower(algorithm) == "wec") {
 		for _, cache := range cacheListWEC {
-			simulator = wec.NewWEC(cache[0],cache[1],cache[2])
+			simulator := wec.NewWEC(cache[0],cache[1],cache[2])
 			timeStart = time.Now()
 	
 			for _, trace := range traces {
@@ -88,7 +98,21 @@ func main() {
 	
 			simulator.PrintToFile(out, timeStart)
 		}
-		} else {
+	} else if (strings.ToLower(algorithm) == "wecv2") {
+		for _, cache := range cacheListWEC {
+			simulator := wec_v2.NewWEC(cache[0],cache[1],cache[2])
+			timeStart = time.Now()
+	
+			for _, trace := range traces {
+				err = simulator.Get(trace)
+				if err != nil {
+					log.Fatal(err.Error())
+				}
+			}
+	
+			simulator.PrintToFile(out, timeStart)
+		}
+	} else {
 			for _, cache := range cacheList {
 				switch strings.ToLower(algorithm) {
 				case "lirs":
