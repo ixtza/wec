@@ -108,12 +108,13 @@ func (lru *LRU) Get(trace simulator.Trace) (err error) {
 }
 
 func (lru LRU) PrintToFile(file *os.File, timeStart time.Time) (err error) {
+	file.WriteString("------------------------------------\n")
 	file.WriteString(fmt.Sprintf("NUM ACCESS: %d\n", lru.totalaccess))
 	file.WriteString(fmt.Sprintf("cache size: %d\n", lru.maxlen))
 	file.WriteString(fmt.Sprintf("cache hit: %d\n", lru.hit))
 	file.WriteString(fmt.Sprintf("cache miss: %d\n", lru.miss))
 	file.WriteString(fmt.Sprintf("ssd write: %d\n", lru.write))
-	file.WriteString(fmt.Sprintf("write efficiency : %d\n", (lru.hit/lru.write)))
+	file.WriteString(fmt.Sprintf("write efficiency : %d\n", (lru.hit / lru.write)))
 	file.WriteString(fmt.Sprintf("hit ratio : %8.4f\n", (float64(lru.hit)/float64(lru.totalaccess))*100))
 	file.WriteString(fmt.Sprintf("tlba size : %d\n", lru.tlba.Len()))
 	file.WriteString(fmt.Sprintf("list size : %d\n", lru.lrulist.Len()))

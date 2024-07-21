@@ -129,12 +129,13 @@ func (lfu LFU) PrintToFile(file *os.File, timeStart time.Time) (err error) {
 	for ii := 0; ii < MAXFREQ; ii++ {
 		sum = sum + lfu.freqArr[ii].Len()
 	}
+	file.WriteString("------------------------------------\n")
 	file.WriteString(fmt.Sprintf("NUM ACCESS: %d\n", lfu.totalaccess))
 	file.WriteString(fmt.Sprintf("cache size: %d\n", lfu.maxlen))
 	file.WriteString(fmt.Sprintf("cache hit: %d\n", lfu.hit))
 	file.WriteString(fmt.Sprintf("cache miss: %d\n", lfu.miss))
 	file.WriteString(fmt.Sprintf("ssd write: %d\n", lfu.write))
-	file.WriteString(fmt.Sprintf("write efficiency : %d\n", (lfu.hit/lfu.write)))
+	file.WriteString(fmt.Sprintf("write efficiency : %d\n", (lfu.hit / lfu.write)))
 	file.WriteString(fmt.Sprintf("hit ratio : %8.4f\n", (float64(lfu.hit)/float64(lfu.totalaccess))*100))
 	file.WriteString(fmt.Sprintf("isi tree %d\n", lfu.tlba.Len()))
 	file.WriteString(fmt.Sprintf("isi array: %d\n", sum))
